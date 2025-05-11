@@ -17,9 +17,10 @@
       "description": "The nodes to which this node applies",
       "required": true,
       "relationship": {
-        "edge_type": "applies_to",
+        "edgeType": "applies_to",
         "description": "The node to which this rule applies"
       }
     }
-  }
+  },
+  "additionalProperties": true
 }
