@@ -16,11 +16,7 @@
       "type": "string",
       "description": "Current status of the quest",
       "required": true,
-      "enum": [
-        "Active",
-        "Completed",
-        "Failed"
-      ]
+      "enum": ["Active", "Completed", "Failed"]
     },
     "objectives": {
       "type": "array",
@@ -60,6 +56,40 @@
       "required": false,
       "items": {
         "type": "string"
+      }
+    },
+    "type": {
+      "type": "string",
+      "description": "Categorizes the quest (e.g., Main, Side, Hook, Rumor, Flashback, Mission).",
+      "required": false,
+      "enum": ["Main", "Side", "Hook", "Rumor", "Flashback", "Mission"]
+    },
+    "consequences": {
+      "type": "array",
+      "description": "Possible or triggered consequences of the quest’s outcome (world state changes, NPC/faction shifts, new locations unlocked, etc.).",
+      "required": false
+    },
+    "parentQuest": {
+      "type": "string",
+      "description": "Identifier for a parent (overarching) quest, if this is a subquest.",
+      "required": false,
+      "relationship": {
+        "edgeType": "subquest_of",
+        "description": "This quest is part of a larger quest or mission arc."
+      }
+    },
+    "flags": {
+      "type": "array",
+      "description": "Tags or flags for advanced filtering or campaign tracking (e.g., timed, secret, urgent, recurring).",
+      "required": false
+    },
+    "involvedFactions": {
+      "type": "array",
+      "description": "Factions or organizations that may be affected by or participate in this quest.",
+      "required": false,
+      "relationship": {
+        "edgeType": "affects_faction",
+        "description": "Quest outcome directly impacts these groups."
       }
     }
   },

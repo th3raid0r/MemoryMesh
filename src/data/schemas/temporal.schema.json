@@ -1,7 +1,23 @@
 {
   "name": "add_temporal",
-  "description": "Represents a specific point in time and its associated environmental conditions.",
+  "description": "Represents a specific point in time and its associated environmental conditions, events, or baseline history",
   "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the event or",
+      "required": true
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of temporal event - e.g. event (during player gameplay), baseline (prior to player era), present_day (a freqently updated pointer of 'today')",
+      "required": true,
+      "enum": ["event", "baseline", "present_day"]
+    },
+    "subType": {
+      "type": "string",
+      "description": "The Subtype of temporal event - e.g. birth, death, war, tragedy, triumph, etc.",
+      "required": false
+    },
     "time": {
       "type": "string",
       "description": "The specific time.",
@@ -17,9 +33,14 @@
       "description": "The current year or point in the timeline.",
       "required": false
     },
-    "weather": {
+    "conditions": {
       "type": "string",
       "description": "The current weather or environmental conditions.",
+      "required": false
+    },
+    "content": {
+      "type": "string",
+      "description": "The content of the event or lore text",
       "required": false
     }
   },

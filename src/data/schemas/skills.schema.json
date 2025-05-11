@@ -4,16 +4,26 @@
   "properties": {
     "name": {
       "type": "string",
-      "description": "[Entity]_abilities",
+      "description": "Skill name",
       "required": true
     },
-    "owner": {
+    "type": {
       "type": "string",
-      "description": "The entity or character that owns these skills.",
+      "description": "The skill type - e.g. Spell, Focus, Skill, Power, Species Ability",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "description": "A short, succinct summary of the skill and its mechanics",
+      "required": true
+    },
+    "source": {
+      "type": "array",
+      "description": "The source materials relevant to this skill",
       "required": true,
       "relationship": {
-        "edgeType": "possesses",
-        "description": "The relationship between the skill and its owner."
+        "edgeType": "sourced_from",
+        "description": "The relationship between the skill and its source materials"
       }
     }
   },

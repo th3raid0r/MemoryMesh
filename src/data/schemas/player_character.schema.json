@@ -27,9 +27,9 @@
       "description": "Player character's current status",
       "required": true
     },
-    "race": {
+    "species": {
       "type": "string",
-      "description": "Player character's race",
+      "description": "Player character's species",
       "required": false
     },
     "description": {
@@ -46,6 +46,54 @@
       "type": "array",
       "description": "List of equipment items associated with the player character",
       "required": false
+    },
+    "tags": {
+      "type": "array",
+      "description": "Category labels (role, status, etc.) useful for filtering or story structure.",
+      "required": false
+    },
+    "secrets": {
+      "type": "array",
+      "description": "Player Character's closely held secrets they wish to keep hidden.",
+      "required": false
+    },
+    "knownSecrets": {
+      "type": "array",
+      "description": "Secrets or private knowledge known by the character. Ones that have a price, and wouldn't be personally devastating.",
+      "required": false
+    },
+    "publicInfo": {
+      "type": "array",
+      "description": "Publicly known information about the character.",
+      "required": false
+    },
+    "goals": {
+      "type": "array",
+      "description": "Personal or assigned goals.",
+      "required": false
+    },
+    "affiliations": {
+      "type": "array",
+      "description": "Factions or organizations to which the character belongs.",
+      "required": false,
+      "relationship": {
+        "edgeType": "member_of",
+        "description": "Membership in an organization, affiliation with a faction or group."
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "description": "Notable ongoing conditions/events (e.g., cyborg, cursed, undercover, injured).",
+      "required": false
+    },
+    "skills": {
+      "type": "array",
+      "description": "The PlayerCharacter/NPC Skills",
+      "required": false,
+      "relationship": {
+        "edgeType": "player_can",
+        "description": "A list of skills, attributes, special abilities, spells, species features, etc. that the player can perform"
+      }
     }
   },
   "additionalProperties": true

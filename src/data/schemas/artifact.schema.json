@@ -63,6 +63,26 @@
         "edgeType": "found_at",
         "description": "Artifact locations"
       }
+    },
+    "usageRestrictions": {
+      "type": "string",
+      "description": "Limitations or requirements for usage (authorized users, attunement, clearance, species, etc.).",
+      "required": false
+    },
+    "lore": {
+      "type": "string",
+      "description": "Hidden history, legends, or secret knowledge tied to this artifact.",
+      "required": false
+    },
+    "modificationLog": {
+      "type": "array",
+      "description": "History of upgrades, repairs, or significant changes.",
+      "required": false
+    },
+    "chargePool": {
+      "type": "string",
+      "description": "Current number or description of charges/uses/energy.",
+      "required": false
     }
   },
   "additionalProperties": true

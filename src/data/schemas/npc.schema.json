@@ -36,9 +36,9 @@
       "description": "NPC's gender",
       "required": false
     },
-    "race": {
+    "species": {
       "type": "string",
-      "description": "NPC's race",
+      "description": "NPC's species",
       "required": false
     },
     "background": {
@@ -94,6 +94,39 @@
       "type": "string",
       "description": "The driving purpose or goals of the NPC",
       "required": false
+    },
+    "tags": {
+      "type": "array",
+      "description": "Category labels (role, status, etc.) useful for filtering or story structure.",
+      "required": false
+    },
+    "goals": {
+      "type": "array",
+      "description": "Personal or assigned goals.",
+      "required": false
+    },
+    "affiliations": {
+      "type": "array",
+      "description": "Factions or organizations to which the character belongs.",
+      "required": false,
+      "relationship": {
+        "edgeType": "member_of",
+        "description": "Membership in an organization, affiliation with a faction or group."
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "description": "Notable ongoing conditions/events (e.g., cyborg, cursed, undercover, injured).",
+      "required": false
+    },
+    "skills": {
+      "type": "array",
+      "description": "The PlayerCharacter/NPC Skills",
+      "required": false,
+      "relationship": {
+        "edgeType": "npc_can",
+        "description": "A list of skills, attributes, special abilities, spells, species features, etc. that the npc can perform"
+      }
     }
   },
   "additionalProperties": true

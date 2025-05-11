@@ -9,7 +9,7 @@
     },
     "type": {
       "type": "string",
-      "description": "The type of the faction.",
+      "description": "The type of the faction.(e.g., Government, Guild, Cult, Criminal, Resistance, Corporation, Clan).",
       "required": true
     },
     "description": {
@@ -30,6 +30,39 @@
         "edgeType": "led_by",
         "description": "The entity leading this faction."
       }
+    },
+    "resources": {
+      "type": "array",
+      "description": "Important assets, holdings, or resources (ships, tech, wealth, territory).",
+      "required": false
+    },
+    "alliances": {
+      "type": "array",
+      "description": "Other factions or entities allied with this faction.",
+      "required": false,
+      "relationship": {
+        "edgeType": "allied_with",
+        "description": "Allied or friendly to these other groups."
+      }
+    },
+    "rivals": {
+      "type": "array",
+      "description": "Known rival factions or adversaries.",
+      "required": false,
+      "relationship": {
+        "edgeType": "rival_of",
+        "description": "In rivalry or open antagonism with these factions."
+      }
+    },
+    "reputation": {
+      "type": "string",
+      "description": "Current public or sector reputation.",
+      "required": false
+    },
+    "agendaPriority": {
+      "type": "array",
+      "description": "Ordered priorities/agendas for the faction at this time.",
+      "required": false
     }
   },
   "additionalProperties": true

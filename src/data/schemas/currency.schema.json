@@ -15,7 +15,7 @@
     "owner": {
       "type": "string",
       "description": "The entity or character that owns this currency.",
-      "required": true,
+      "required": false,
       "relationship": {
         "edgeType": "owned_by",
         "description": "The relationship between the currency and its owner."
@@ -24,7 +24,7 @@
     "quantity": {
       "type": "string",
       "description": "The amount of this currency owned.",
-      "required": true
+      "required": false
     }
   },
   "additionalProperties": true
