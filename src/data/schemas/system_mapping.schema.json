@@ -1,0 +1,25 @@
+{
+  "name": "add_system_concept",
+  "description": "An RPG System Definition, Rule, or SRD content.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name or subject of the system concept",
+      "required": true
+    },
+    "content": {
+      "type": "string",
+      "description": "The content of the system concept, rule, or SRD content",
+      "required": true
+    },
+    "appliesTo": {
+      "type": "array",
+      "description": "The nodes to which this node applies",
+      "required": true,
+      "relationship": {
+        "edge_type": "applies_to",
+        "description": "The node to which this rule applies"
+      }
+    }
+  }
+}
