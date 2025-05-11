@@ -76,7 +76,9 @@ async function main(): Promise<void> {
           ],
         });
         return {
-          content: [{ type: "text", text: JSON.stringify(result.toolResult) }],
+          content: [
+            { type: "text", text: JSON.stringify(formattedError.toolResult) },
+          ],
         };
       }
     });
