@@ -83,6 +83,11 @@
       "type": "string",
       "description": "Current number or description of charges/uses/energy.",
       "required": false
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags for filtering, grouping, or scenario hooks.",
+      "required": false
     }
   },
   "additionalProperties": true

@@ -91,6 +91,11 @@
         "edgeType": "affects_faction",
         "description": "Quest outcome directly impacts these groups."
       }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags for filtering, grouping, or scenario hooks.",
+      "required": false
     }
   },
   "additionalProperties": true

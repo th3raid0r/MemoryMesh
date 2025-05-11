@@ -15,7 +15,7 @@
     "owner": {
       "type": "string",
       "description": "The entity or character that owns this vehicle.",
-      "required": true,
+      "required": false,
       "relationship": {
         "edgeType": "owned_by",
         "description": "The relationship between the vehicle and its owner."
@@ -25,6 +25,11 @@
       "type": "string",
       "description": "The type or class of the vehicle (e.g., car, spaceship, boat, horse).",
       "required": true
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags for filtering, grouping, or scenario hooks.",
+      "required": false
     }
   },
   "additionalProperties": true

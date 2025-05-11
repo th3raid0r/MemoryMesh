@@ -63,6 +63,11 @@
       "type": "array",
       "description": "Ordered priorities/agendas for the faction at this time.",
       "required": false
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags for filtering, grouping, or scenario hooks.",
+      "required": false
     }
   },
   "additionalProperties": true

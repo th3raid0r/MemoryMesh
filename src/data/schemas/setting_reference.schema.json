@@ -34,6 +34,11 @@
         "edgeType": "modifies_source",
         "description": "The system_reference node this content modifies"
       }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags for filtering, grouping, or scenario hooks.",
+      "required": false
     }
   },
   "additionalProperties": true
