@@ -1,5 +1,5 @@
 {
-  "name": "add_system_concept",
+  "name": "add_system_mapping",
   "description": "An RPG System Definition, Rule, or SRD content.",
   "properties": {
     "name": {
