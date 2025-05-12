@@ -25,7 +25,11 @@
     "parentLocation": {
       "type": "string",
       "description": "The parent location this location belongs to",
-      "required": false
+      "required": false,
+      "relationship": {
+        "edgeType": "a_part_of",
+        "description": "A part of this parent location."
+      }
     },
     "atmosphere": {
       "type": "string",
