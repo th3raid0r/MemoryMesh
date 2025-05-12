@@ -54,6 +54,15 @@
         "description": "In rivalry or open antagonism with these factions."
       }
     },
+    "subFactions": {
+      "type": "array",
+      "description": "Known sub-factions, schisms, or splinter-groups",
+      "required": false,
+      "relationship": {
+        "edgeType": "subfaction_of",
+        "description": "A subfaction or splinter-group from this faction."
+      }
+    },
     "reputation": {
       "type": "string",
       "description": "Current public or sector reputation.",
