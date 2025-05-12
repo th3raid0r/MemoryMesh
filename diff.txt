@@ -1,0 +1,607 @@
+diff --git a/src/data/schemas/artifact.schema.json b/src/data/schemas/artifact.schema.json
+index 28aa399..bf0ae98 100644
+--- a/src/data/schemas/artifact.schema.json
++++ b/src/data/schemas/artifact.schema.json
+@@ -63,7 +63,32 @@
+         "edgeType": "found_at",
+         "description": "Artifact locations"
+       }
++    },
++    "usageRestrictions": {
++      "type": "string",
++      "description": "Limitations or requirements for usage (authorized users, attunement, clearance, species, etc.).",
++      "required": false
++    },
++    "lore": {
++      "type": "string",
++      "description": "Hidden history, legends, or secret knowledge tied to this artifact.",
++      "required": false
++    },
++    "modificationLog": {
++      "type": "array",
++      "description": "History of upgrades, repairs, or significant changes.",
++      "required": false
++    },
++    "chargePool": {
++      "type": "string",
++      "description": "Current number or description of charges/uses/energy.",
++      "required": false
++    },
++    "tags": {
++      "type": "array",
++      "description": "Tags for filtering, grouping, or scenario hooks.",
++      "required": false
+     }
+   },
+   "additionalProperties": true
+-}
+\ No newline at end of file
++}
+diff --git a/src/data/schemas/currency.schema.json b/src/data/schemas/currency.schema.json
+index 09c3e17..1408966 100644
+--- a/src/data/schemas/currency.schema.json
++++ b/src/data/schemas/currency.schema.json
+@@ -15,7 +15,7 @@
+     "owner": {
+       "type": "string",
+       "description": "The entity or character that owns this currency.",
+-      "required": true,
++      "required": false,
+       "relationship": {
+         "edgeType": "owned_by",
+         "description": "The relationship between the currency and its owner."
+@@ -24,8 +24,8 @@
+     "quantity": {
+       "type": "string",
+       "description": "The amount of this currency owned.",
+-      "required": true
++      "required": false
+     }
+   },
+   "additionalProperties": true
+-}
+\ No newline at end of file
++}
+diff --git a/src/data/schemas/faction.schema.json b/src/data/schemas/faction.schema.json
+index e4535af..f1ebea1 100644
+--- a/src/data/schemas/faction.schema.json
++++ b/src/data/schemas/faction.schema.json
+@@ -9,7 +9,7 @@
+     },
+     "type": {
+       "type": "string",
+-      "description": "The type of the faction.",
++      "description": "The type of the faction.(e.g., Government, Guild, Cult, Criminal, Resistance, Corporation, Clan).",
+       "required": true
+     },
+     "description": {
+@@ -30,7 +30,45 @@
+         "edgeType": "led_by",
+         "description": "The entity leading this faction."
+       }
++    },
++    "resources": {
++      "type": "array",
++      "description": "Important assets, holdings, or resources (ships, tech, wealth, territory).",
++      "required": false
++    },
++    "alliances": {
++      "type": "array",
++      "description": "Other factions or entities allied with this faction.",
++      "required": false,
++      "relationship": {
++        "edgeType": "allied_with",
++        "description": "Allied or friendly to these other groups."
++      }
++    },
++    "rivals": {
++      "type": "array",
++      "description": "Known rival factions or adversaries.",
++      "required": false,
++      "relationship": {
++        "edgeType": "rival_of",
++        "description": "In rivalry or open antagonism with these factions."
++      }
++    },
++    "reputation": {
++      "type": "string",
++      "description": "Current public or sector reputation.",
++      "required": false
++    },
++    "agendaPriority": {
++      "type": "array",
++      "description": "Ordered priorities/agendas for the faction at this time.",
++      "required": false
++    },
++    "tags": {
++      "type": "array",
++      "description": "Tags for filtering, grouping, or scenario hooks.",
++      "required": false
+     }
+   },
+   "additionalProperties": true
+-}
+\ No newline at end of file
++}
+diff --git a/src/data/schemas/location.schema.json b/src/data/schemas/location.schema.json
+index 2276bff..04929f0 100644
+--- a/src/data/schemas/location.schema.json
++++ b/src/data/schemas/location.schema.json
+@@ -9,7 +9,7 @@
+     },
+     "type": {
+       "type": "string",
+-      "description": "Type of location",
++      "description": "Type of location (e.g., City, Facility, District, Ship, Region, Wilds, Planet, System, Sector).",
+       "required": true
+     },
+     "description": {
+@@ -87,7 +87,35 @@
+         "edgeType": "located_at",
+         "description": "Artifacts associated with the location"
+       }
++    },
++    "controlledBy": {
++      "type": "string",
++      "description": "Current owner or controlling entity.",
++      "required": false,
++      "relationship": {
++        "edgeType": "controlled_by",
++        "description": "Entity, faction, or person with effective control over the location."
++      }
++    },
++    "historicalEvents": {
++      "type": "array",
++      "description": "References to notable events that occurred at or changed this location.",
++      "required": false,
++      "relationship": {
++        "edgeType": "occurred_at",
++        "description": "Events of significance that took place here."
++      }
++    },
++    "hazards": {
++      "type": "array",
++      "description": "Environmental, social, or other hazards present at this location.",
++      "required": false
++    },
++    "tags": {
++      "type": "array",
++      "description": "Tags for filtering, grouping, or scenario hooks.",
++      "required": false
+     }
+   },
+   "additionalProperties": true
+-}
+\ No newline at end of file
++}
+diff --git a/src/data/schemas/npc.schema.json b/src/data/schemas/npc.schema.json
+index 16586f8..87598d9 100644
+--- a/src/data/schemas/npc.schema.json
++++ b/src/data/schemas/npc.schema.json
+@@ -36,9 +36,9 @@
+       "description": "NPC's gender",
+       "required": false
+     },
+-    "race": {
++    "species": {
+       "type": "string",
+-      "description": "NPC's race",
++      "description": "NPC's species",
+       "required": false
+     },
+     "background": {
+@@ -94,7 +94,40 @@
+       "type": "string",
+       "description": "The driving purpose or goals of the NPC",
+       "required": false
++    },
++    "tags": {
++      "type": "array",
++      "description": "Category labels (role, status, etc.) useful for filtering or story structure.",
++      "required": false
++    },
++    "goals": {
++      "type": "array",
++      "description": "Personal or assigned goals.",
++      "required": false
++    },
++    "affiliations": {
++      "type": "array",
++      "description": "Factions or organizations to which the character belongs.",
++      "required": false,
++      "relationship": {
++        "edgeType": "member_of",
++        "description": "Membership in an organization, affiliation with a faction or group."
++      }
++    },
++    "conditions": {
++      "type": "array",
++      "description": "Notable ongoing conditions/events (e.g., cyborg, cursed, undercover, injured).",
++      "required": false
++    },
++    "skills": {
++      "type": "array",
++      "description": "The PlayerCharacter/NPC Skills",
++      "required": false,
++      "relationship": {
++        "edgeType": "npc_can",
++        "description": "A list of skills, attributes, special abilities, spells, species features, etc. that the npc can perform"
++      }
+     }
+   },
+   "additionalProperties": true
+-}
+\ No newline at end of file
++}
+diff --git a/src/data/schemas/player_character.schema.json b/src/data/schemas/player_character.schema.json
+index 4eb9a42..528a549 100644
+--- a/src/data/schemas/player_character.schema.json
++++ b/src/data/schemas/player_character.schema.json
+@@ -27,9 +27,9 @@
+       "description": "Player character's current status",
+       "required": true
+     },
+-    "race": {
++    "species": {
+       "type": "string",
+-      "description": "Player character's race",
++      "description": "Player character's species",
+       "required": false
+     },
+     "description": {
+@@ -46,7 +46,55 @@
+       "type": "array",
+       "description": "List of equipment items associated with the player character",
+       "required": false
++    },
++    "tags": {
++      "type": "array",
++      "description": "Category labels (role, status, etc.) useful for filtering or story structure.",
++      "required": false
++    },
++    "secrets": {
++      "type": "array",
++      "description": "Player Character's closely held secrets they wish to keep hidden.",
++      "required": false
++    },
++    "knownSecrets": {
++      "type": "array",
++      "description": "Secrets or private knowledge known by the character. Ones that have a price, and wouldn't be personally devastating.",
++      "required": false
++    },
++    "publicInfo": {
++      "type": "array",
++      "description": "Publicly known information about the character.",
++      "required": false
++    },
++    "goals": {
++      "type": "array",
++      "description": "Personal or assigned goals.",
++      "required": false
++    },
++    "affiliations": {
++      "type": "array",
++      "description": "Factions or organizations to which the character belongs.",
++      "required": false,
++      "relationship": {
++        "edgeType": "member_of",
++        "description": "Membership in an organization, affiliation with a faction or group."
++      }
++    },
++    "conditions": {
++      "type": "array",
++      "description": "Notable ongoing conditions/events (e.g., cyborg, cursed, undercover, injured).",
++      "required": false
++    },
++    "skills": {
++      "type": "array",
++      "description": "The PlayerCharacter/NPC Skills",
++      "required": false,
++      "relationship": {
++        "edgeType": "player_can",
++        "description": "A list of skills, attributes, special abilities, spells, species features, etc. that the player can perform"
++      }
+     }
+   },
+   "additionalProperties": true
+-}
+\ No newline at end of file
++}
+diff --git a/src/data/schemas/quest.schema.json b/src/data/schemas/quest.schema.json
+index d5430f4..720e6e4 100644
+--- a/src/data/schemas/quest.schema.json
++++ b/src/data/schemas/quest.schema.json
+@@ -16,11 +16,7 @@
+       "type": "string",
+       "description": "Current status of the quest",
+       "required": true,
+-      "enum": [
+-        "Active",
+-        "Completed",
+-        "Failed"
+-      ]
++      "enum": ["Active", "Completed", "Failed"]
+     },
+     "objectives": {
+       "type": "array",
+@@ -61,6 +57,45 @@
+       "items": {
+         "type": "string"
+       }
++    },
++    "type": {
++      "type": "string",
++      "description": "Categorizes the quest (e.g., Main, Side, Hook, Rumor, Flashback, Mission).",
++      "required": false,
++      "enum": ["Main", "Side", "Hook", "Rumor", "Flashback", "Mission"]
++    },
++    "consequences": {
++      "type": "array",
++      "description": "Possible or triggered consequences of the quest’s outcome (world state changes, NPC/faction shifts, new locations unlocked, etc.).",
++      "required": false
++    },
++    "parentQuest": {
++      "type": "string",
++      "description": "Identifier for a parent (overarching) quest, if this is a subquest.",
++      "required": false,
++      "relationship": {
++        "edgeType": "subquest_of",
++        "description": "This quest is part of a larger quest or mission arc."
++      }
++    },
++    "flags": {
++      "type": "array",
++      "description": "Tags or flags for advanced filtering or campaign tracking (e.g., timed, secret, urgent, recurring).",
++      "required": false
++    },
++    "involvedFactions": {
++      "type": "array",
++      "description": "Factions or organizations that may be affected by or participate in this quest.",
++      "required": false,
++      "relationship": {
++        "edgeType": "affects_faction",
++        "description": "Quest outcome directly impacts these groups."
++      }
++    },
++    "tags": {
++      "type": "array",
++      "description": "Tags for filtering, grouping, or scenario hooks.",
++      "required": false
+     }
+   },
+   "additionalProperties": true
+diff --git a/src/data/schemas/setting_reference.schema.json b/src/data/schemas/setting_reference.schema.json
+new file mode 100644
+index 0000000..f784f45
+--- /dev/null
++++ b/src/data/schemas/setting_reference.schema.json
+@@ -0,0 +1,45 @@
++{
++  "name": "add_setting_reference",
++  "description": "An RPG Setting Detail, Definition, Rule, or Modification to the System.",
++  "properties": {
++    "name": {
++      "type": "string",
++      "description": "The name or subject of the setting detail",
++      "required": true
++    },
++    "type": {
++      "type": "string",
++      "description": "The type of setting reference - e.g. Rule, Lore, System Modification, Monster, NPC Template",
++      "required": true
++    },
++    "content": {
++      "type": "string",
++      "description": "The content of the setting detail, definition, rule, or modification.",
++      "required": true
++    },
++    "appliesTo": {
++      "type": "array",
++      "description": "The nodes to which this node applies",
++      "required": true,
++      "relationship": {
++        "edgeType": "applies_to",
++        "description": "The entity to which this rule applies"
++      }
++    },
++    "modifiesSource": {
++      "type": "array",
++      "description": "The system_detail nodes to which this node modifies",
++      "required": true,
++      "relationship": {
++        "edgeType": "modifies_source",
++        "description": "The system_reference node this content modifies"
++      }
++    },
++    "tags": {
++      "type": "array",
++      "description": "Tags for filtering, grouping, or scenario hooks.",
++      "required": false
++    }
++  },
++  "additionalProperties": true
++}
+diff --git a/src/data/schemas/skills.schema.json b/src/data/schemas/skills.schema.json
+index 206ddbc..0e3490e 100644
+--- a/src/data/schemas/skills.schema.json
++++ b/src/data/schemas/skills.schema.json
+@@ -4,16 +4,26 @@
+   "properties": {
+     "name": {
+       "type": "string",
+-      "description": "[Entity]_abilities",
++      "description": "Skill name",
+       "required": true
+     },
+-    "owner": {
++    "type": {
+       "type": "string",
+-      "description": "The entity or character that owns these skills.",
++      "description": "The skill type - e.g. Spell, Focus, Skill, Power, Species Ability",
++      "required": true
++    },
++    "description": {
++      "type": "string",
++      "description": "A short, succinct summary of the skill and its mechanics",
++      "required": true
++    },
++    "source": {
++      "type": "array",
++      "description": "The source materials relevant to this skill",
+       "required": true,
+       "relationship": {
+-        "edgeType": "possesses",
+-        "description": "The relationship between the skill and its owner."
++        "edgeType": "sourced_from",
++        "description": "The relationship between the skill and its source materials"
+       }
+     }
+   },
+diff --git a/src/data/schemas/system_mapping.schema.json b/src/data/schemas/system_mapping.schema.json
+deleted file mode 100644
+index ba1c255..0000000
+--- a/src/data/schemas/system_mapping.schema.json
++++ /dev/null
+@@ -1,26 +0,0 @@
+-{
+-  "name": "add_system_mapping",
+-  "description": "An RPG System Definition, Rule, or SRD content.",
+-  "properties": {
+-    "name": {
+-      "type": "string",
+-      "description": "The name or subject of the system concept",
+-      "required": true
+-    },
+-    "content": {
+-      "type": "string",
+-      "description": "The content of the system concept, rule, or SRD content",
+-      "required": true
+-    },
+-    "appliesTo": {
+-      "type": "array",
+-      "description": "The nodes to which this node applies",
+-      "required": true,
+-      "relationship": {
+-        "edgeType": "applies_to",
+-        "description": "The node to which this rule applies"
+-      }
+-    }
+-  },
+-  "additionalProperties": true
+-}
+diff --git a/src/data/schemas/system_reference.schema.json b/src/data/schemas/system_reference.schema.json
+new file mode 100644
+index 0000000..96796ef
+--- /dev/null
++++ b/src/data/schemas/system_reference.schema.json
+@@ -0,0 +1,31 @@
++{
++  "name": "add_system_reference",
++  "description": "An RPG System Definition, Rule, or SRD content.",
++  "properties": {
++    "name": {
++      "type": "string",
++      "description": "The name or subject of the system reference document",
++      "required": true
++    },
++    "type": {
++      "type": "string",
++      "description": "The type of System reference - e.g. Rule, Lore, System Modification, Monster, NPC Template,etc.",
++      "required": true
++    },
++    "content": {
++      "type": "string",
++      "description": "The content of the system reference",
++      "required": true
++    },
++    "appliesTo": {
++      "type": "array",
++      "description": "The entity to which this reference applies or is modified by",
++      "required": true,
++      "relationship": {
++        "edgeType": "applies_to",
++        "description": "The entity to which this reference applies or is modified by"
++      }
++    }
++  },
++  "additionalProperties": true
++}
+diff --git a/src/data/schemas/temporal.schema.json b/src/data/schemas/temporal.schema.json
+index eadfdf5..22be244 100644
+--- a/src/data/schemas/temporal.schema.json
++++ b/src/data/schemas/temporal.schema.json
+@@ -1,7 +1,23 @@
+ {
+   "name": "add_temporal",
+-  "description": "Represents a specific point in time and its associated environmental conditions.",
++  "description": "Represents a specific point in time and its associated environmental conditions, events, or baseline history",
+   "properties": {
++    "name": {
++      "type": "string",
++      "description": "The name of the event or",
++      "required": true
++    },
++    "type": {
++      "type": "string",
++      "description": "The type of temporal event - e.g. event (during player gameplay), baseline (prior to player era), present_day (a freqently updated pointer of 'today')",
++      "required": true,
++      "enum": ["event", "baseline", "present_day"]
++    },
++    "subType": {
++      "type": "string",
++      "description": "The Subtype of temporal event - e.g. birth, death, war, tragedy, triumph, etc.",
++      "required": false
++    },
+     "time": {
+       "type": "string",
+       "description": "The specific time.",
+@@ -17,10 +33,20 @@
+       "description": "The current year or point in the timeline.",
+       "required": false
+     },
+-    "weather": {
++    "conditions": {
+       "type": "string",
+       "description": "The current weather or environmental conditions.",
+       "required": false
++    },
++    "content": {
++      "type": "string",
++      "description": "The content of the event or lore text",
++      "required": false
++    },
++    "tags": {
++      "type": "array",
++      "description": "Tags for filtering, grouping, or scenario hooks.",
++      "required": false
+     }
+   },
+   "additionalProperties": true
+diff --git a/src/data/schemas/transportation.schema.json b/src/data/schemas/transportation.schema.json
+index b8e59da..9d99e96 100644
+--- a/src/data/schemas/transportation.schema.json
++++ b/src/data/schemas/transportation.schema.json
+@@ -15,7 +15,7 @@
+     "owner": {
+       "type": "string",
+       "description": "The entity or character that owns this vehicle.",
+-      "required": true,
++      "required": false,
+       "relationship": {
+         "edgeType": "owned_by",
+         "description": "The relationship between the vehicle and its owner."
+@@ -25,7 +25,12 @@
+       "type": "string",
+       "description": "The type or class of the vehicle (e.g., car, spaceship, boat, horse).",
+       "required": true
++    },
++    "tags": {
++      "type": "array",
++      "description": "Tags for filtering, grouping, or scenario hooks.",
++      "required": false
+     }
+   },
+   "additionalProperties": true
+-}
+\ No newline at end of file
++}
